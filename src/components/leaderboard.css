@@ -1,0 +1,32 @@
+.background{
+    background: url('../images/mountain.png') ;
+    background-size: cover;
+    min-height: 100vh;
+  
+  }
+  .buttons {
+    padding-top: 600px;
+    padding-left: 150px;
+  }
+  
+  .inner1{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: block;
+  
+  }
+  .inner2{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    margin-left: 100px;
+  }
+  
+  
+  
+  .youtube{
+    float: right;
+  
+  }
