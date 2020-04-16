@@ -1,0 +1,14 @@
+.main{
+    width: '100%';
+}
+.click {
+    margin-top: 8px;
+    margin-right: 8px;
+}
+.actionsContainer{
+    margin-top: 8px;
+    margin-bottom:16px;
+}
+.resetContainer {
+    padding: 24px;
+}
