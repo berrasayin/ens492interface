@@ -19,8 +19,7 @@ class Courses extends React.Component {
     constructor() {
       super();
   
-  
-      firebase.initializeApp(config);
+
   
       this.state = {
         activeStep: 0,
