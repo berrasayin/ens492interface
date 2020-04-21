@@ -12,7 +12,7 @@ class Contact extends Component {
                         <img
                             src="https://www.sabanciuniv.edu/sites/default/themes/su/assets/img/footer-logo.png"
                             alt="avatar"
-                            style={{ height: '130px' }}
+                            style={{ height: '120px', width: '55%' }}
                         />
                         <p style={{ width: '75%', margin: 'auto', paddingTop: 'lem' }}>Computer Science and Engineering (CSE)
                         Program addresses leading edge science and technology both with its wide curriculum and research
@@ -28,30 +28,30 @@ class Contact extends Component {
                         <div className="contact-list">
                             <List>
                                 <ListItem>
-                                    <ListItemContent style={{ fontSize: '30px', fontFamily: 'Anton' }}>
+                                    <ListItemContent style={{ fontSize: '20px', fontFamily: 'Anton' }}>
                                         <i className="fa fa-home" aria-hidden="true" />
-                                        Sabancı Üniversitesi
-                                             Orta Mahalle Üniversite Caddesi No: 27
+                                        Sabancı Üniversitesi,
+                                        Orta Mahalle, Üniversite Caddesi, No: 27
                                         Tuzla, 34956 Istanbul
                                     </ListItemContent>
                                 </ListItem>
 
                                 <ListItem>
-                                    <ListItemContent style={{ fontSize: '30px', fontFamily: 'Anton' }}>
+                                    <ListItemContent style={{ fontSize: '20px', fontFamily: 'Anton' }}>
                                         <i className="fa fa-phone-square" aria-hidden="true" />
                                         +90 216 483 92 14
                                     </ListItemContent>
                                 </ListItem>
 
                                 <ListItem>
-                                    <ListItemContent style={{ fontSize: '30px', fontFamily: 'Anton' }}>
+                                    <ListItemContent style={{ fontSize: '20px', fontFamily: 'Anton' }}>
                                         <i className="fa fa-fax" aria-hidden="true" />
                                         +90 216 483 92 25
                                     </ListItemContent>
                                 </ListItem>
 
                                 <ListItem>
-                                    <ListItemContent style={{ fontSize: '30px', fontFamily: 'Anton' }}>
+                                    <ListItemContent style={{ fontSize: '20px', fontFamily: 'Anton' }}>
                                         <i className="fa fa-envelope" aria-hidden="true" />
                                         bm@sabanciuniv.edu
                                     </ListItemContent>
