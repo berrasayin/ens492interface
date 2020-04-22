@@ -29,7 +29,18 @@ class Courses extends React.Component {
   
     componentDidMount = async () => {
   
-      this.handleData();
+      firebase.database().ref("microTopics").child("courses").once("value").then(data => {
+        let videosDict = data.val()
+        for (let key in videosDict) {
+          //console.log( videosDict[key])
+          this.setState({
+            videos: [...this.state.videos, videosDict[key]],
+            steps: [...this.state.steps, key]
+          })
+        }
+        console.log(this.state.videos);
+        console.log(this.state.steps);
+      });
       // await fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json()).then((result) => {
       //   this.setState({
       //     try: result
@@ -54,20 +65,6 @@ class Courses extends React.Component {
   
     }
   
-      // FOR FIREBASE
-  handleData = () => {
-      firebase.database().ref("microTopics").child("courses").once("value").then(data => {
-        let videosDict = data.val()
-        console.log(videosDict)
-        for (let key in videosDict) {
-          this.setState({
-            videos: [...this.state.videos, videosDict[key]],
-            steps: [...this.state.steps, key]
-          })
-        }
-      });
-      console.log(this.state.videos);
-    }
     setModalShow = (state) => {
       this.setState({
         modalShow: state,
@@ -80,21 +77,21 @@ class Courses extends React.Component {
         case 0:
           return <ReactPlayer
             className='react-player'
-            url={this.state.videos[1]}
+            url={this.state.videos[0]}
             width='700px'
             height='500px'
             controls={true} />
         case 1:
           return <ReactPlayer
             className='react-player'
-            url={this.state.videos[2]}
+            url={this.state.videos[1]}
             width='700px'
             height='500px'
             controls={true} />
         case 2:
           return <ReactPlayer
             className='react-player'
-            url={this.state.videos[3]}
+            url={this.state.videos[2]}
             width='700px'
             height='500px'
             controls={true} />
@@ -132,10 +129,10 @@ class Courses extends React.Component {
           <Stepper className='micro-topics' activeStep={this.state.activeStep} orientation="vertical">
             {localStorage !== null &&
               this.state.steps.slice(0, JSON.parse(localStorage.getItem('micronum'))).map((label, index) => (
-                < Step key={label} >
-                  <StepLabel>{label}</StepLabel>
+                < Step  key={label} >
+                  <StepLabel >{label}</StepLabel>
                   <StepContent>
-                    <Typography>{this.getStepContent(index)}</Typography>
+                    <Typography >{this.getStepContent(index)}</Typography>
                     <div className='actionsContainer'>
                       <div>
                         <Button
@@ -159,7 +156,7 @@ class Courses extends React.Component {
                 </Step>
               ))}
           </Stepper>
-          {this.state.activeStep === this.state.steps.length && (
+          {this.state.activeStep === this.state.steps.slice(0, JSON.parse(localStorage.getItem('micronum'))).length && (
             <Paper square elevation={0} className='resetContainer'>
               <Typography>All micro topics are completed - you&apos;re finished</Typography>
               <Button onClick={this.handleReset} className='click'>
@@ -167,7 +164,6 @@ class Courses extends React.Component {
             </Button>
             </Paper>
           )}
-          <div>//</div>
         </div >
       );
     }

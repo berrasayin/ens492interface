@@ -69,6 +69,11 @@ class App extends Component {
             });
     };
 
+    signOut = async () => {
+        firebase.auth().signOut();
+
+      }
+
     render() {
         return (
             <div >
