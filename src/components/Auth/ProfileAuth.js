@@ -44,7 +44,7 @@ class ProfileAuth extends React.Component {
                                 anchorEl: _.currentTarget
                             })
                         }>
-                        <Avatar alt={this.props.username} src="/broken-image.jpg" className={classes.orange} />
+                        <Avatar alt={this.props.username} src="/broken-image.jpg" className={classes.purple} />
                     </Tooltip>
                     <Menu
                         id="simple-menu"

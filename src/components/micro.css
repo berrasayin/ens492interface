@@ -1,5 +1,5 @@
 .main{
-    width: '100%';
+    width: 100%;
 }
 .click {
     margin-top: 8px;
@@ -12,3 +12,4 @@
 .resetContainer {
     padding: 24px;
 }
+

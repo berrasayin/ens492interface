@@ -7,10 +7,10 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ReactPlayer from 'react-player';
-import Popup from './Popup.js';
 import config from '../config';
 import './micro.css';
 import firebase from 'firebase';
+import DialogMicro from './DialogMicro';
 
 
 
@@ -18,14 +18,12 @@ class Courses extends React.Component {
 
     constructor() {
       super();
-  
-
-  
       this.state = {
         activeStep: 0,
         steps: [],
         videos: [],
-        try: []
+        try: [],
+        modalShow: true,
       };
     }
   
@@ -58,8 +56,9 @@ class Courses extends React.Component {
   
       // FOR FIREBASE
   handleData = () => {
-      firebase.database().ref("microTopics").once("value").then(data => {
+      firebase.database().ref("microTopics").child("courses").once("value").then(data => {
         let videosDict = data.val()
+        console.log(videosDict)
         for (let key in videosDict) {
           this.setState({
             videos: [...this.state.videos, videosDict[key]],
@@ -69,6 +68,11 @@ class Courses extends React.Component {
       });
       console.log(this.state.videos);
     }
+    setModalShow = (state) => {
+      this.setState({
+        modalShow: state,
+      });
+    };
   
   
     getStepContent = (step) => {
@@ -117,14 +121,15 @@ class Courses extends React.Component {
         activeStep: 0
       })
     };
-  
-  
+
     render() {
   
       return (
         <div className='main' >
-          <Popup />
-          <Stepper activeStep={this.state.activeStep} orientation="vertical">
+          <DialogMicro
+            show={this.state.modalShow}
+          onHide={() => this.setModalShow(false)}/>
+          <Stepper className='micro-topics' activeStep={this.state.activeStep} orientation="vertical">
             {localStorage !== null &&
               this.state.steps.slice(0, JSON.parse(localStorage.getItem('micronum'))).map((label, index) => (
                 < Step key={label} >

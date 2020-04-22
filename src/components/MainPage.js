@@ -16,7 +16,7 @@ class App extends Component {
                 <Layout>
                     <Header className="header-color">
                         <Navigation>
-                            <Link to='/'>Sabancı University E-Learning Platform</Link>
+                            <Link to=''>Sabancı University E-Learning Platform</Link>
                             <Link to="/profile">Profile</Link>
                             <Link to="/courses">IF100</Link>
                             <Link to="/contact">Contact</Link>
@@ -31,7 +31,10 @@ class App extends Component {
                     <Content>
                         <div className="page-content" />
                         <Switch>
-                            <Route exact path="/" component={LandingPage} />
+                            <Route
+                                exact
+                                path="/"
+                                component={() => <LandingPage username={this.props.username} />} />
                             <Route path="/profile" component={Profile} />
                             <Route path="/contact" component={Contact} />
                             <Route path="/courses" component={Courses} />

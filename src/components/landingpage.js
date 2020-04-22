@@ -15,7 +15,8 @@ class Landing extends Component {
                         />
 
                         <div className="banner-text">
-                            <h1>Freshman Student</h1>
+                            <h1>{this.props.username !== undefined ? this.props.username : ''}  </h1>
+                            {console.log(this.props.username !== undefined)}
                             <hr />
                             <div className="social-links">
 
