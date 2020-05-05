@@ -72,7 +72,9 @@ class App extends Component {
 
     signOut = async () => {
         firebase.auth().signOut();
-
+        await this.setState({
+            isSignedIn: false,
+        })
     }
 
     render() {
@@ -81,7 +83,7 @@ class App extends Component {
                 <Router>
                     <MainPage
                         isSignedIn={this.state.isSignedIn}
-                        signOut={() => this.signOut()}
+                        signOut={() => this.signOut}
                         username={this.state.userData ? this.state.userData.username : ""}
                         userID={this.state.userID ? this.state.userID : ""}
                     />

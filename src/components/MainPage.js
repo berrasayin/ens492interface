@@ -8,6 +8,7 @@ import Profile from './Profile';
 import Contact from './Contact/Contact';
 import Courses from './Courses';
 import ProfileAuth from './Auth/ProfileAuth';
+import Leaderboard from './LeaderBoard/Leaderboard';
 
 class MainPage extends Component {
     render() {
@@ -19,10 +20,13 @@ class MainPage extends Component {
                             <Link to=''>Sabancı University E-Learning Platform</Link>
                             <Link to="/profile">Profile</Link>
                             <Link to="/courses">IF100</Link>
+                            <Link to="/leaderboard">Leaderboard</Link>
                             <Link to="/contact">Contact</Link>
                             <ProfileAuth
                                 isSignedIn={this.props.isSignedIn}
                                 username={this.props.username}
+                                signOut={this.props.signOut()}
+
                             />
                         </Navigation>
                     </Header>
@@ -37,6 +41,7 @@ class MainPage extends Component {
                             <Route path="/profile" component={Profile} />
                             <Route path="/contact" component={Contact} />
                             <Route path="/courses" component={() => <Courses userID={this.props.userID} />} />
+                            <Route path="/leaderboard" component={Leaderboard} />
                         </Switch>
                     </Content>
                 </Layout>

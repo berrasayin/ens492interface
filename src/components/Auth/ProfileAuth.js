@@ -37,7 +37,7 @@ class ProfileAuth extends React.Component {
         if (this.props.isSignedIn && this.props.username && this.props.username !== undefined) {
             return (
                 <div>
-                    <Tooltip aria-controls="simple-menu" aria-haspopup="true" title={this.props.username}
+                    <Tooltip aria-controls="simple-menu" aria-haspopup="true" title={this.props.isSignedIn ? this.props.username : ''}
                         onClick={(_) =>
                             this.setState({
                                 isMenuOpened: true,
