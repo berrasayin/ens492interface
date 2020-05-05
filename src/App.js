@@ -38,6 +38,7 @@ class App extends Component {
         this.setState({
             userID: userID,
         });
+
     };
     getUserData = (user) => {
         firebase
@@ -72,7 +73,7 @@ class App extends Component {
     signOut = async () => {
         firebase.auth().signOut();
 
-      }
+    }
 
     render() {
         return (
@@ -82,6 +83,7 @@ class App extends Component {
                         isSignedIn={this.state.isSignedIn}
                         signOut={() => this.signOut()}
                         username={this.state.userData ? this.state.userData.username : ""}
+                        userID={this.state.userID ? this.state.userID : ""}
                     />
                 </Router>
             </div>

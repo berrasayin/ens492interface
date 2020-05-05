@@ -17,8 +17,8 @@ import TextField from '@material-ui/core/TextField';
 
 class Courses extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       activeStep: 0,
       steps: [],
@@ -35,11 +35,9 @@ class Courses extends React.Component {
   }
 
   componentDidMount = async () => {
-
     firebase.database().ref("microTopics").child("courses").once("value").then(data => {
       let videosDict = data.val()
       for (let key in videosDict) {
-        //console.log( videosDict[key])
         this.setState({
           videos: [...this.state.videos, videosDict[key]],
           steps: [...this.state.steps, key]
@@ -48,7 +46,6 @@ class Courses extends React.Component {
     });
     firebase.database().ref("microTopics").child("quizs").once("value").then(data => {
       let quizes = data.val()
-      console.log(quizes)
       for (let key in quizes) {
         let quiz = quizes[key]
         this.setState({
@@ -56,6 +53,7 @@ class Courses extends React.Component {
           questions: [...this.state.questions, quiz["question"]]
         })
       }
+
     });
     // await fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json()).then((result) => {
     //   this.setState({
@@ -113,6 +111,7 @@ class Courses extends React.Component {
           controls={true} />
       default:
         return 'Unknown step';
+
     }
   }
 
@@ -127,6 +126,7 @@ class Courses extends React.Component {
     })
   }
 
+
   handleBack = async () => {
     await this.setState(
       prevState => ({ activeStep: prevState.activeStep - 1 }
@@ -137,33 +137,43 @@ class Courses extends React.Component {
     this.setState({
       activeStep: 0,
       answer: '',
+      score: 0,
     })
   };
 
 
-  saveAnswer = (event) => {
+  saveAnswer = async (event) => { //made it async in order to wait for the event to come 
     localStorage.setItem('answer', this.state.answer);
     if (this.state.answer === this.state.answerKey[0]) {  //Checking whether the answer is true in the question 
-      this.setState({
+      await this.setState({
         answerKey: this.state.answerKey.slice(1),
         score: this.state.score + 1,
         canPass: true,
         answer: '',
       })
     }
+
     else {
-      console.log(this.state.answer)
       this.setState({
         answer: '',
+        canPass: true,
       });
     }
   }
+
+  handleScore = () => {//
+    firebase.database().ref("users").child(this.props.userID).update({
+      score: this.state.score,
+    });
+  }
+
 
   setInput = async (e) => {
     await this.setState({
       answer: e.target.value
     })
   }
+
 
   render() {
 
@@ -183,7 +193,7 @@ class Courses extends React.Component {
                     <div>
                       <img src={this.state.questions[index]} />
                       {/* <Button
-                        disabled={this.state.activeStep === 0 ? true : false}
+                      disabled={this.state.activeStep === 0 ? true : false}
                         onClick={this.handleBack}
                         className='click'
                       >
@@ -218,11 +228,14 @@ class Courses extends React.Component {
             <Typography>All micro topics are completed - you&apos;re finished</Typography>
             <Button onClick={this.handleReset} className='click'>
               Reset
-            </Button>
+                      </Button>
+            <Button onClick={this.handleScore} className='click'>
+              Save Your Score To The Board
+             </ Button>
           </Paper>
         )}
       </div >
     );
   }
 }
-export default Courses;
+export default Courses;                                                                                                                                                         

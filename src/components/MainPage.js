@@ -9,7 +9,7 @@ import Contact from './Contact/Contact';
 import Courses from './Courses';
 import ProfileAuth from './Auth/ProfileAuth';
 
-class App extends Component {
+class MainPage extends Component {
     render() {
         return (
             <div className="demo-big-content">
@@ -21,7 +21,6 @@ class App extends Component {
                             <Link to="/courses">IF100</Link>
                             <Link to="/contact">Contact</Link>
                             <ProfileAuth
-                                signOut={() => this.props.signOut()}
                                 isSignedIn={this.props.isSignedIn}
                                 username={this.props.username}
                             />
@@ -37,7 +36,7 @@ class App extends Component {
                                 component={() => <LandingPage username={this.props.username} />} />
                             <Route path="/profile" component={Profile} />
                             <Route path="/contact" component={Contact} />
-                            <Route path="/courses" component={Courses} />
+                            <Route path="/courses" component={() => <Courses userID={this.props.userID} />} />
                         </Switch>
                     </Content>
                 </Layout>
@@ -48,4 +47,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default MainPage;
