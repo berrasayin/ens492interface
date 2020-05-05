@@ -11,6 +11,7 @@ import config from '../config';
 import './micro.css';
 import firebase from 'firebase';
 import DialogMicro from './DialogMicro';
+import TextField from '@material-ui/core/TextField';
 
 
 
@@ -27,6 +28,9 @@ class Courses extends React.Component {
       answerKey: [],
       questions: [],
       answer: '',
+      canPass: false,
+      score: 0,
+
     };
   }
 
@@ -116,7 +120,11 @@ class Courses extends React.Component {
   handleNext = async () => {
     await this.setState(
       prevState => ({ activeStep: prevState.activeStep + 1 }
-      ));
+      )
+    );
+    this.setState({//makes the next/finished button disabled all the time 
+      canPass: false
+    })
   }
 
   handleBack = async () => {
@@ -127,19 +135,34 @@ class Courses extends React.Component {
 
   handleReset = () => {
     this.setState({
-      activeStep: 0
+      activeStep: 0,
+      answer: '',
     })
   };
 
+
   saveAnswer = (event) => {
     localStorage.setItem('answer', this.state.answer);
-    console.log(this.state.answer);
-    event.target.value = '';
+    if (this.state.answer === this.state.answerKey[0]) {  //Checking whether the answer is true in the question 
+      this.setState({
+        answerKey: this.state.answerKey.slice(1),
+        score: this.state.score + 1,
+        canPass: true,
+        answer: '',
+      })
+    }
+    else {
+      console.log(this.state.answer)
+      this.setState({
+        answer: '',
+      });
+    }
   }
-  handleAnswer = (event) => {
-    this.setState({
-      answer: [...this.state.answer, event.target.value],
-    });
+
+  setInput = async (e) => {
+    await this.setState({
+      answer: e.target.value
+    })
   }
 
   render() {
@@ -171,16 +194,19 @@ class Courses extends React.Component {
                         color="primary"
                         onClick={this.handleNext}
                         className='click'
+                        disabled={!this.state.canPass}
                       >
                         {this.state.activeStep === JSON.parse(localStorage.getItem('micronum')) - 1 ? 'Finish' : 'Next'}
                       </Button>
-                      <form>
-                        <label>
-                          Answer:
-                          <input type="text" name="name" placeholder="Enter A, B and so on" onChange={this.handleAnswer} />
-                          <Button onClick={this.saveAnswer}>Save your answer</Button>
-                        </label>
-                      </form>
+                      <TextField
+                        autoFocus
+                        label="Answer:"
+                        type="text"
+                        value={this.state.answer}
+                        onChange={e => this.setInput(e)}
+                        placeholder="Enter A, B and so on"
+                      />
+                      <Button onClick={this.saveAnswer}>Save your answer</Button>
                     </div>
                   </div>
                 </StepContent>
