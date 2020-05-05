@@ -4,9 +4,9 @@ import './mainPage.css';
 import { Layout, Header, Navigation, Drawer, Content } from 'react-mdl';
 import { Link, Switch, Route } from 'react-router-dom';
 import LandingPage from './Landingpage';
-import Profile from './Profile';
+import Profile from './Profile/Profile';
 import Contact from './Contact/Contact';
-import Courses from './Courses';
+import Courses from './MicroTopics/Courses';
 import ProfileAuth from './Auth/ProfileAuth';
 import Leaderboard from './LeaderBoard/Leaderboard';
 

@@ -7,10 +7,10 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ReactPlayer from 'react-player';
-import config from '../config';
+import config from '../../config';
 import './micro.css';
 import firebase from 'firebase';
-import DialogMicro from './DialogMicro';
+import DialogMicro from '../DialogMicro';
 import TextField from '@material-ui/core/TextField';
 
 
