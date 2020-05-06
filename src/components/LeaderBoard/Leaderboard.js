@@ -71,7 +71,7 @@ class Leaderboard extends Component {
                         {this.state.name.map((label, index) => (
                             <StyledTableRow className="row" key={label}>
                                 <StyledTableCell >
-                                    {this.state.name[index]}
+                                    {index + 1 + ". " + this.state.name[index]}
                                 </StyledTableCell>
                                 <StyledTableCell align="left">{this.state.score[index]}</StyledTableCell>
                             </StyledTableRow>

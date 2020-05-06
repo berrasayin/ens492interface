@@ -13,3 +13,6 @@
 .resetContainer {
     padding: 24px;
 }
+.quiz-ans{
+    display: -ms-inline-grid;
+}

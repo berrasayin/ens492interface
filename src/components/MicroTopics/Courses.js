@@ -199,6 +199,17 @@ class Courses extends React.Component {
                       >
                         Back
                     </Button> */}
+                      <div className="quiz-ans">
+                        <TextField
+                          autoFocus
+                          label="Answer:"
+                          type="text"
+                          value={this.state.answer}
+                          onChange={e => this.setInput(e)}
+                          placeholder="Enter A, B and so on"
+                        />
+                        <Button onClick={this.saveAnswer}>Save your answer</Button>
+                      </div>
                       <Button
                         variant="contained"
                         color="primary"
@@ -208,15 +219,6 @@ class Courses extends React.Component {
                       >
                         {this.state.activeStep === JSON.parse(localStorage.getItem('micronum')) - 1 ? 'Finish' : 'Next'}
                       </Button>
-                      <TextField
-                        autoFocus
-                        label="Answer:"
-                        type="text"
-                        value={this.state.answer}
-                        onChange={e => this.setInput(e)}
-                        placeholder="Enter A, B and so on"
-                      />
-                      <Button onClick={this.saveAnswer}>Save your answer</Button>
                     </div>
                   </div>
                 </StepContent>
