@@ -151,10 +151,13 @@ class Courses extends React.Component {
         canPass: true,
         answer: '',
       })
-    }
-
-    else {
-      this.setState({
+    } else if (this.state.answer === " ") {
+      alert("You entered an empty answer. Please choose one of the options!");
+      await this.setState({
+        answer: '',
+      })
+    } else {
+      await this.setState({
         answer: '',
         canPass: true,
       });

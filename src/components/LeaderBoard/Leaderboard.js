@@ -9,6 +9,9 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import './leaderboard.css';
 import firebase from 'firebase';
+import down from '../../images/down.png'
+import up from '../../images/up.png'
+import { borderLeft } from '@material-ui/system';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -31,14 +34,15 @@ const StyledTableRow = withStyles((theme) => ({
 
 
 
-
 class Leaderboard extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             name: [],
-            score: []
+            score: [],
+            students: {},
+            ascending: true,
         };
     }
 
@@ -50,9 +54,12 @@ class Leaderboard extends Component {
                 let student = users[key];
                 this.setState({
                     name: [...this.state.name, student["username"]],
-                    score: [...this.state.score, student["score"]]
+                    score: [...this.state.score, student["score"]],
                 })
+                this.state.students[student["username"]] = student["score"];
+
             }
+            console.log(this.state.students)
         });
     }
 
@@ -64,6 +71,7 @@ class Leaderboard extends Component {
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>Name & Surname</StyledTableCell>
+                            <img className="sorting" src={this.state.ascending ? up : down} />
                             <StyledTableCell align="left">Score</StyledTableCell>
                         </TableRow>
                     </TableHead>
