@@ -13,6 +13,7 @@ import down from '../../images/down.png'
 import up from '../../images/up.png'
 import { borderLeft } from '@material-ui/system';
 
+
 const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: theme.palette.common.white,
@@ -40,9 +41,10 @@ class Leaderboard extends Component {
         super(props);
         this.state = {
             name: [],
-            score: [],
+            overallScore: [],
             students: {},
             ascending: true,
+            sortedStudents: {}
         };
     }
 
@@ -52,36 +54,65 @@ class Leaderboard extends Component {
             let users = data.val()
             for (let key in users) {
                 let student = users[key];
-                this.setState({
-                    name: [...this.state.name, student["username"]],
-                    score: [...this.state.score, student["score"]],
-                })
-                this.state.students[student["username"]] = student["score"];
-
+                this.state.students[student["username"]] = student["overallScore"];
             }
-            console.log(this.state.students)
+            this.ascendingDescending();
+            for (var key in this.state.students) {
+                this.setState({
+                    name: [...this.state.name, key],
+                    overallScore: [...this.state.overallScore, this.state.students[key]]
+                })
+            }
         });
     }
+
+    ascendingDescending = () => {
+        let dicti = this.state.students
+        var items = Object.keys(dicti).map(function (key) {
+            return [key, dicti[key]];
+        });
+        if (!this.state.ascending) {
+            items.sort(function (first, second) { //ascending order
+                return second[1] - first[1];
+            });
+        } else {
+            items.sort(function (first, second) { //descending order
+                return first[1] - second[1];
+            });
+        }
+        for (var i = 0; i < items.length; i++) {
+            let studentName = items[i][0];
+            let studentScore = items[i][1];
+            this.state.sortedStudents[studentName] = studentScore;
+        }
+        this.setState({
+            ascending: !this.state.ascending,
+            students: this.state.sortedStudents,
+            sortedStudents: {},
+        })
+        console.log(this.state.students)
+    }
+
 
     render() {
 
         return (
             <TableContainer component={Paper} >
-                <Table className="table" aria-label="customized table">
+                <Table aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>Name & Surname</StyledTableCell>
-                            <img className="sorting" src={this.state.ascending ? up : down} />
-                            <StyledTableCell align="left">Score</StyledTableCell>
+                            <StyledTableCell align='left' >Score</StyledTableCell>
+                            <img onClick={this.ascendingDescending} className="sorting" src={this.state.ascending ? up : down} />
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.name.map((label, index) => (
-                            <StyledTableRow className="row" key={label}>
+                        {Object.keys(this.state.students).map((label, index) => (
+                            <StyledTableRow >
                                 <StyledTableCell >
-                                    {index + 1 + ". " + this.state.name[index]}
+                                    {label}
                                 </StyledTableCell>
-                                <StyledTableCell align="left">{this.state.score[index]}</StyledTableCell>
+                                <StyledTableCell align="left">{this.state.students[label]}</StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>

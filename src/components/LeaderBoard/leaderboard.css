@@ -1,8 +1,10 @@
-.table {
-    min-width:  700;
-}
+
 .sorting{
     height: 25px;
     width: 25px;
     margin-top: 15px;
+
+}
+.row{
+    display: inline;
 }

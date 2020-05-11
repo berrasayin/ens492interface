@@ -30,7 +30,8 @@ class Courses extends React.Component {
       answer: '',
       canPass: false,
       score: 0,
-
+      counter: 0,//must be equal to the number of questions in quiz to be able to skip to the next microtopic
+      overallScore: 0,
     };
   }
 
@@ -48,13 +49,20 @@ class Courses extends React.Component {
       let quizes = data.val()
       for (let key in quizes) {
         let quiz = quizes[key]
-        this.setState({
-          answerKey: [...this.state.answerKey, quiz["answer"]],
-          questions: [...this.state.questions, quiz["question"]]
-        })
+        for (let ques in quiz) {
+          let quizzes = quiz[ques]
+          this.setState({
+            answerKey: [...this.state.answerKey, quizzes["answer"]],
+            questions: [...this.state.questions, quizzes["question"]]
+          })
+        }
       }
 
     });
+
+
+
+
     // await fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json()).then((result) => {
     //   this.setState({
     //     try: result
@@ -122,7 +130,9 @@ class Courses extends React.Component {
       )
     );
     this.setState({//makes the next/finished button disabled all the time 
-      canPass: false
+      canPass: false,
+      score: 0,
+      counter: 0,
     })
   }
 
@@ -144,34 +154,52 @@ class Courses extends React.Component {
 
   saveAnswer = async (event) => { //made it async in order to wait for the event to come 
     localStorage.setItem('answer', this.state.answer);
-    if (this.state.answer === this.state.answerKey[0]) {  //Checking whether the answer is true in the question 
+    if (this.state.answer === this.state.answerKey[0]) {  //Checking whether the answer is true in the question
       await this.setState({
         answerKey: this.state.answerKey.slice(1),
         score: this.state.score + 1,
-        canPass: true,
         answer: '',
+        counter: this.state.counter + 1,
       })
-    } else if (this.state.answer === " ") {
+      console.log("tru", this.state.answer, this.state.score)
+      if (this.state.score > 1) {
+        this.setState({
+          canPass: true,
+          overallScore: this.state.overallScore + this.state.score,
+          answerKey: this.state.answerKey.slice(3 - this.state.counter, this.state.answerKey.length)
+        })
+        console.log(this.state.answerKey)
+      }
+    } else if (this.state.answer === " " || this.state.answer === "") { // if user entered an empty input or nothing at all 
       alert("You entered an empty answer. Please choose one of the options!");
       await this.setState({
         answer: '',
       })
-    } else {
+    } else { //if answer is not true
+      console.log("flase", this.state.answer, this.state.score)
       await this.setState({
         answer: '',
-        canPass: true,
       });
+      if (this.state.score > 1) {
+        this.setState({
+          canPass: true,
+          overallScore: this.state.overallScore + this.state.score,
+          answerKey: this.state.answerKey.slice(3 - this.state.counter, this.state.answerKey.length)
+        })
+      }
+      console.log(this.state.answerKey)
     }
   }
 
-  handleScore = () => {//
+  handleScore = () => {
     firebase.database().ref("users").child(this.props.userID).update({
-      score: this.state.score,
+      overallScore: this.state.overallScore,
     });
   }
 
 
   setInput = async (e) => {
+    e.preventDefault();
     await this.setState({
       answer: e.target.value
     })
@@ -194,7 +222,6 @@ class Courses extends React.Component {
                   <Typography >{this.getStepContent(index)}</Typography>
                   <div className='actionsContainer'>
                     <div>
-                      <img src={this.state.questions[index]} />
                       {/* <Button
                       disabled={this.state.activeStep === 0 ? true : false}
                         onClick={this.handleBack}
@@ -202,17 +229,22 @@ class Courses extends React.Component {
                       >
                         Back
                     </Button> */}
-                      <div className="quiz-ans">
-                        <TextField
-                          autoFocus
-                          label="Answer:"
-                          type="text"
-                          value={this.state.answer}
-                          onChange={e => this.setInput(e)}
-                          placeholder="Enter A, B and so on"
-                        />
-                        <Button onClick={this.saveAnswer}>Save your answer</Button>
-                      </div>
+                      {this.state.questions.slice(index * 3, (index * 3) + 3).map((label, ind) => (
+                        <div className="quiz-ans">
+                          <img src={label} />
+                          <TextField
+
+                            id={ind * 3}
+                            autoFocus
+                            label="Answer:"
+                            type="text"
+                            onChange={e => this.setInput(e)}
+                            placeholder="Enter A, B and so on"
+                          />
+                          <Button onClick={this.saveAnswer}>Save your answer</Button>
+                        </div>
+                      ))}
+
                       <Button
                         variant="contained"
                         color="primary"
