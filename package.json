@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "firebase": "^7.14.1",
     "material-ui": "^0.20.2",
+    "material-ui-popup-state": "^1.5.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-firebaseui": "^4.1.0",

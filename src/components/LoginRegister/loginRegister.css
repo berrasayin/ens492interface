@@ -1,0 +1,91 @@
+.form_block{
+    width: 400px;
+    display: table;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #74ebd5;  
+      background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);  
+      background: linear-gradient(to right, #ACB6E5, #74ebd5);
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .form_block > #title{
+      background: #74ebd5;  
+      background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);  
+      background: linear-gradient(to right, #ACB6E5, #74ebd5);
+    padding: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    text-shadow: -1px -1px 0 rgba(0,0,0,.2);
+  }
+  .form_block > .body{
+      background: #FFFFFF;
+    padding: 10px;
+    display: table;
+  }
+  
+  input[type='text'],input[type='password'] {
+    height: 35px;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    padding: 4px 5px;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+  .loginBtn{
+    height: 35px;
+    box-sizing: border-box;
+    padding: 4px 10px;
+    background: #ACB6E5;
+    border: 1px solid #d0d0d0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .loginBtn:hover{
+    background:  #fff;
+  }
+  .registerBtn{
+    float: right;
+    font-weight: bold;
+    background: #ACB6E5;
+  
+    height: 35px;
+    box-sizing: border-box;
+    padding: 4px 10px;
+    border: 1px solid #d0d0d0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: -35px;
+  }
+  .registerBtn:hover{
+    background: #fff;
+  }
+  .Error{
+    padding: 10px;
+    background-color: #feeaea;
+    border: 1px solid #fadadb;
+    margin-bottom: 10px;
+    border-radius: 3px;
+  }
+  
+  .loginImage{
+      width:300px;
+      height: 200px;
+      margin-left: 40px;
+      margin-bottom: 20px;
+      margin-top: 10px;
+  }
